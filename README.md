@@ -15,7 +15,7 @@ There are also transcoding scripts in the root directory for the various formats
 
 ## Project Structure
 The `dev` directory houses subdirectories for each device.
-The subdirectory names begin with the device's `lsusb` id, followed by the best name for the device.
+The subdirectory names begin with the device's vendor, followed by the `lsusb` id (with the colon replaced by a period).
 
 In each device directory are scripts and a README.
 The README includes general notes, as well as other names the device might be known under.
