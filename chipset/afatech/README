@@ -1,0 +1,21 @@
+1b80:e302 Afatech
+
+# also known as
+Roxio Easy VHS to DVD
+Roxio EasyVHStoDVD
+Roxio Video Capture USB
+Pinnacle Dazzle DVC
+
+# notes
+this device is very fussy. it likes to dump out garbage (green, monochrome, scrambled).
+to resolve, close everything using it. unplug it. then:
+
+sudo rmmod e28xx_v4l e28xx
+
+then plug it back in.
+
+# related links, though not for this specific device
+https://www.linuxtv.org/wiki/index.php/RoxioEasyVHStoDVD
+
+
+

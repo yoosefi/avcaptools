@@ -1,0 +1,6 @@
+#!/bin/bash
+VIDEO_DEVICE=$(v4l2-ctl --list-devices | awk '/Pinnacle/{getline; print}' | xargs)
+
+echo Device ${VIDEO_DEVICE}
+
+v4l2-ctl -d ${VIDEO_DEVICE} --all

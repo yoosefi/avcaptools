@@ -1,0 +1,9 @@
+#!/bin/sh
+
+echo V4L2 Devices
+echo
+v4l2-ctl --list-devices
+
+echo Audio Devices
+echo
+cat /proc/asound/cards

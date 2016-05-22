@@ -1,0 +1,7 @@
+#!/bin/bash
+set -eu
+
+# preview with: mplayer tv:// -tv normid=0
+VIDEO_DEVICE=$(v4l2-ctl --list-devices | awk '/Pinnacle/{getline; print}' | xargs)
+v4l2-ctl -d ${VIDEO_DEVICE} -c sharpness=5
+mplayer tv:// -tv "device=${VIDEO_DEVICE}:normid=1" -vf yadif -aspect 4:3

@@ -1,0 +1,23 @@
+#!/bin/bash
+set -eu
+
+if [ $# -eq 0 ]; then
+    echo "Captures NTSC video from composite to </path/to/capture.mpg>, recording sound from hw:<alsa-id>"
+    echo "Usage: ./capture-ntsc </path/to/capture.mpg> [<alsa-id>]"
+    echo
+    echo "<alsa-id> defaults to 0"
+    echo "Currently there is no support for the device's audio. It must be plugged in to the microphone jack."
+    echo
+    exit 1
+fi
+
+OUTFILE="${1}"
+[[ -z "${2}" ]] && ALSA_ID="0" || ALSA_ID=${2}
+
+# capture composite at 720x480, then scale to 720x540 in encoder
+# add "-vf readvitc" ?
+sudo somagic-capture --cvbs --ntsc --luminance=2 --lum-aperture=3 | \
+    ffmpeg \
+        -f rawvideo -framerate 29.97 -video_size 720x480 -pix_fmt uyvy422 -i pipe:0 \
+        -f alsa -i hw:${ALSA_ID} \
+        -f mpeg1video -b:v 4M -b:a 128k -y ${OUTFILE}

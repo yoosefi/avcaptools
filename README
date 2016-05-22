@@ -1,0 +1,7 @@
+symlinks for chipsets can be looked up via:
+    - lsusb id in the "by-id" directory
+    - product name in the "by-product" directory
+
+# links
+https://ffmpeg.org/ffmpeg-filters.html
+https://ffmpeg.org/ffmpeg-formats.html
