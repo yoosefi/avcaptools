@@ -1,6 +1,5 @@
 #!/bin/bash
-VIDEO_DEVICE=$(v4l2-ctl --list-devices | awk '/Pinnacle/{getline; print}' | xargs)
-
+# prints info about the device
+source $(dirname $(readlink -f "${0}"))/.init.sh
 echo Device ${VIDEO_DEVICE}
-
 v4l2-ctl -d ${VIDEO_DEVICE} --all
