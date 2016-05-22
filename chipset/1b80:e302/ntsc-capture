@@ -2,9 +2,10 @@
 set -eu
 
 if  [ $# -eq 0 ]; then cat << EOF
-Captures NTSC video
 
-./ntsc-capture <capture.mpg> [options]
+Captures NTSC video to an MPEG file.
+
+${0} <capture.mpg> [options]
 
     -a <alsa-id>
     ALSA hardware ID for the microphone.
@@ -20,6 +21,7 @@ exit 1; fi
 OUTFILE="${1}"
 ALSA_ID="0"
 LENGTH=""
+
 while getopts ":a:t:" opt; do case $opt in
     a) ALSA_ID="${OPTARG}"
     ;;
@@ -27,10 +29,8 @@ while getopts ":a:t:" opt; do case $opt in
     ;;
 esac done
 
-# the device audio bitrate of 384k is fine to leave as-is.
 # the video bitrate is brought down to 8M in order to be sensible without losing any detail.
-VIDEO_DEVICE=$(v4l2-ctl --list-devices | awk '/Pinnacle/{getline; print}' | xargs)
-v4l2-ctl -d ${VIDEO_DEVICE} -c sharpness=5
+source $(dirname $(readlink -f "${0}"))/.init.sh
 ffmpeg \
     -f v4l2 -framerate 29.97 -video_size 720x480 -i "${VIDEO_DEVICE}" \
     -f alsa -i "hw:${ALSA_ID}" \

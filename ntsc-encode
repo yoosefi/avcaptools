@@ -2,9 +2,10 @@
 set -eu
 
 if [ $# -eq 0 ]; then cat << EOF
+
 Encodes a previously captured NTSC video from 720x480/PCM/MPEG to 720x540/AAC/h.264
 
-./ntsc-encode <capture.mpg>
+${0} <capture.mpg>
 
 The encoded file is output to the same directory as the captured video,
 and uses the same name, but with the extension changed to mp4.
