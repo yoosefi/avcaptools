@@ -9,9 +9,9 @@ Requirements:
 - `ffmpeg` for encoding.
 
 ## Capturing and Transcoding
-The capture scripts here encode to MPEG-TS files with a bitrate of 8MB.
+The capture scripts here encode to MPEG-TS files with a bitrate of 8MB. In order to fit a two-hour capture on a DVD, the average bitrate must be reduced to 4.5MB-5MB. Most DVD authoring software will do this for you.
 
-There are also transcoding scripts in the root directory for the various formats to create h.264 MP4 files.
+There are also transcoding scripts in the root directory for the various formats to create h.264 MP4 files. The bitrate is reduced to 5MB without noticable quality loss.
 
 ## Project Structure
 The `dev` directory houses subdirectories for each device.
