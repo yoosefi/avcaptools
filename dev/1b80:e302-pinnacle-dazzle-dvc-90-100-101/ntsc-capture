@@ -3,7 +3,7 @@ set -eu
 
 if  [ $# -eq 0 ]; then cat << EOF
 
-Captures NTSC video to an MPEG file.
+Captures NTSC video to an MPEG-TS file.
 
 ${0} <capture.mpg> [options]
 
@@ -34,5 +34,5 @@ source $(dirname $(readlink -f "${0}"))/.init.sh
 ffmpeg \
     -f v4l2 -framerate 29.97 -video_size 720x480 -i "${VIDEO_DEVICE}" \
     -f alsa -i hw:${ALSA_ID} \
-    -aspect 4:3 -b:v 8M ${DURATION} -y "${OUTFILE}"
+    -f mpegts -aspect 4:3 -b:v 5M ${DURATION} -y "${OUTFILE}"
 

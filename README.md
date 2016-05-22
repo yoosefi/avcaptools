@@ -9,7 +9,7 @@ Requirements:
 - `ffmpeg` for encoding.
 
 ## Capturing and Transcoding
-The capture scripts here encode to MPEG files at a bitrate of 8M.
+The capture scripts here encode to MPEG-TS files at a bitrate of 5M.
 This way, for example, a two-hour NTSC capture will result in a video file that will fit on a DVD.
 
 There are also transcoding scripts in the root directory for the various formats to create h.264 MP4 files.

@@ -3,7 +3,7 @@ set -eu
 
 if [ $# -eq 0 ]; then cat << EOF
 
-Captures NTSC video to an MPEG file.
+Captures NTSC video to an MPEG-TS file.
 
 ${0} <capture.mpg> [options]
 
@@ -37,5 +37,5 @@ sudo somagic-capture --cvbs --ntsc --luminance=2 --lum-aperture=3 | \
     ffmpeg \
         -f rawvideo -framerate 29.97 -video_size 720x480 -pix_fmt uyvy422 -i pipe:0 \
         -f alsa -i hw:${ALSA_ID} \
-        -aspect 4:3 -b:v 8M ${DURATION} -y "${OUTFILE}"
+        -f mpegts -aspect 4:3 -b:v 8M ${DURATION} -y "${OUTFILE}"
 
