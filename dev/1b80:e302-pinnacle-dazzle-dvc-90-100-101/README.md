@@ -21,8 +21,6 @@ sudo rmmod e28xx
 
 And then plug it back in.
 
-There is a script here called `rmmods` that will remove the modules for you.
-
 ## Links
 - https://www.linuxtv.org/wiki/index.php/Pinnacle
 - https://www.linuxtv.org/wiki/index.php/RoxioEasyVHStoDVD

@@ -1,4 +1,0 @@
-#!/bin/sh
-sudo rmmod em28xx_v4l
-sudo rmmod em28xx_alsa
-sudo rmmod em28xx
