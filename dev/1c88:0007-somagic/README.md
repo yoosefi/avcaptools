@@ -1,7 +1,7 @@
 # Somagic, Inc.
 
 ## Also Known As
-- SIIG USB 2.0 Video Capture Device
+- SIIG USB 2.0 Video Capture Device JU-AV0012-S1
 
 ## Support Project
 https://code.google.com/archive/p/easycap-somagic-linux
