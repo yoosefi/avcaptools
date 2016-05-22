@@ -5,7 +5,7 @@ if [ $# -eq 0 ]; then cat << EOF
 
 Captures NTSC video to an MPEG-TS file.
 
-${0} <capture.mpg> [options]
+${0} [options] <capture.mpg>
 
     -a <alsa-id>
     ALSA hardware ID for the microphone.
@@ -19,16 +19,17 @@ EOF
     exit 1
 fi
 
-OUTFILE="${1}"
+
 ALSA_ID="0"
 DURATION=""
-
 while getopts ":a:t:" opt; do case $opt in
     a) ALSA_ID="${OPTARG}"
     ;;
     t) DURATION="-t ${OPTARG}"
     ;;
 esac done
+shift $((OPTIND-1))
+OUTFILE="${1}"
 
 source $(dirname $(readlink -f "${0}"))/initialize
 
