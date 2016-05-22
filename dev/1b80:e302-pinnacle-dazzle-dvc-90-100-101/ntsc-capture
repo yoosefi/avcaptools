@@ -12,7 +12,7 @@ ${0} <capture.mpg> [options]
     Default: 0
 
     -t <[[HH:]MM:]SS>
-    Length of time to capture.
+    Duration of time to capture.
     Default: forever
 
 EOF
@@ -20,12 +20,12 @@ exit 1; fi
 
 OUTFILE="${1}"
 ALSA_ID="0"
-LENGTH=""
+DURATION=""
 
 while getopts ":a:t:" opt; do case $opt in
     a) ALSA_ID="${OPTARG}"
     ;;
-    t) LENGTH="-t ${OPTARG}"
+    t) DURATION="-t ${OPTARG}"
     ;;
 esac done
 
@@ -33,6 +33,6 @@ esac done
 source $(dirname $(readlink -f "${0}"))/.init.sh
 ffmpeg \
     -f v4l2 -framerate 29.97 -video_size 720x480 -i "${VIDEO_DEVICE}" \
-    -f alsa -i "hw:${ALSA_ID}" \
-    -f mpeg2video -aspect 4:3 -b:v 8M ${LENGTH} -y "${OUTFILE}"
+    -f alsa -i hw:${ALSA_ID} \
+    -aspect 4:3 -b:v 8M ${DURATION} -y "${OUTFILE}"
 
