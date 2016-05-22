@@ -37,5 +37,5 @@ sudo somagic-capture --cvbs --ntsc --luminance=2 --lum-aperture=3 | \
     ffmpeg \
         -f rawvideo -framerate 29.97 -video_size 720x480 -pix_fmt uyvy422 -i pipe:0 \
         -f alsa -i "hw:${ALSA_ID}" \
-        -b:v 8M ${LENGTH} -y "${OUTFILE}"
+        -f mpeg2video -aspect 4:3 -b:v 8M ${LENGTH} -y "${OUTFILE}"
 

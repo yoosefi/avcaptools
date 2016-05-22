@@ -1,0 +1,31 @@
+#!/bin/bash
+set -eu
+
+if [ $# -eq 0 ]; then cat << EOF
+
+Transcodes a previously captured NTSC video from 720x480/PCM/MPEG2 to 720x540/AAC/h.264
+
+${0} <capture.mpg> [<output.mp4>]
+
+Unless the second argument is given to specify the output file name,
+the transcoded video is put in the same directory as the captured video,
+and uses the same name with the extension changed to mp4.
+
+EOF
+    exit 1
+fi
+
+INFILE="${1}"
+if [ $# -eq 1 ]; then
+    DIRNAME=$(dirname "${INFILE}")
+    BASENAME=$(basename ${INFILE})
+    OUTFILE="${DIRNAME}/${BASENAME%.*}.mp4"
+else
+    OUTFILE="${2}"
+fi
+
+ffmpeg \
+    -i ${INFILE} \
+    -c:v libx264 -vf "readvitc,yadif" -b:v 5M -preset slow -tune grain -aspect 4:3 \
+    -c:a libfdk_aac -b:a 128k \
+    -y "${OUTFILE}"
