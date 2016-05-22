@@ -28,4 +28,5 @@ ffmpeg \
     -i ${INFILE} \
     -c:v libx264 -vf "readvitc,yadif" -b:v 5M -preset slow -tune grain -aspect 4:3 \
     -c:a libfdk_aac -b:a 128k \
+    -metadata creation_time="$(date --iso-8601=seconds)" \
     -y "${OUTFILE}"
