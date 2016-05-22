@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+source $(dirname $(readlink -f "${0}"))/initialize
 
 sudo somagic-capture --cvbs --ntsc --luminance=2 --lum-aperture=3 | \
-    mplayer -vf yadif,screenshot -demuxer rawvideo -rawvideo "ntsc:format=uyvy:fps=29.97" -aspect 4:3 -
+    mplayer -vf yadif,screenshot -demuxer rawvideo -rawvideo "ntsc:format=uyvy:fps=29.97" -aspect 4:3 - 2>/dev/null

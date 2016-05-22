@@ -1,0 +1,9 @@
+#!/bin/bash
+# initializes the capture device.
+# this is also sourced by the other scripts.
+
+SHOULD_INIT=0 lsusb | grep 1c88:003c >/dev/null || SHOULD_INIT=1
+if [ $SHOULD_INIT ]; then
+    sudo somagic-init
+fi
+

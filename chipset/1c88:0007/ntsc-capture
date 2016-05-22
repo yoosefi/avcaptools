@@ -1,23 +1,41 @@
 #!/bin/bash
 set -eu
 
-if [ $# -eq 0 ]; then
-    echo "Captures NTSC video from composite to </path/to/capture.mpg>, recording sound from hw:<alsa-id>"
-    echo "Usage: ./capture-ntsc </path/to/capture.mpg> [<alsa-id>]"
-    echo
-    echo "<alsa-id> defaults to 0"
-    echo "Currently there is no support for the device's audio. It must be plugged in to the microphone jack."
-    echo
+if [ $# -eq 0 ]; then cat << EOF
+
+Captures NTSC video to an MPEG file.
+
+${0} <capture.mpg> [options]
+
+    -a <alsa-id>
+    ALSA hardware ID for the microphone.
+    Default: 0
+
+    -t <[[HH:]MM:]SS>
+    Length of time to capture.
+    Default: forever
+
+EOF
     exit 1
 fi
 
 OUTFILE="${1}"
-[[ -z "${2}" ]] && ALSA_ID="0" || ALSA_ID=${2}
+ALSA_ID="0"
+LENGTH=""
 
-# capture composite at 720x480, then scale to 720x540 in encoder
-# add "-vf readvitc" ?
+while getopts ":a:t:" opt; do case $opt in
+    a) ALSA_ID="${OPTARG}"
+    ;;
+    t) LENGTH="-t ${OPTARG}"
+    ;;
+esac done
+
+source $(dirname $(readlink -f "${0}"))/initialize
+
+# the video bitrate is brought down to 8M in order to be sensible without losing any detail.
 sudo somagic-capture --cvbs --ntsc --luminance=2 --lum-aperture=3 | \
     ffmpeg \
         -f rawvideo -framerate 29.97 -video_size 720x480 -pix_fmt uyvy422 -i pipe:0 \
-        -f alsa -i hw:${ALSA_ID} \
-        -f mpeg1video -b:v 4M -b:a 128k -y ${OUTFILE}
+        -f alsa -i "hw:${ALSA_ID}" \
+        -b:v 8M ${LENGTH} -y "${OUTFILE}"
+
