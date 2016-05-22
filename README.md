@@ -2,7 +2,7 @@ A collection of scripts to aid in Linux A/V capturing.
 
 If you have a collection of scripts you'd like to add, please send a pull request.
 
-## Organisation
+## Organization
 The `dev` directory houses subdirectories for each device.
 The subdirectory names begin with the device's `lsusb` ID.
 
