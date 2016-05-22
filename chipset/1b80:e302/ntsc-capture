@@ -34,4 +34,5 @@ source $(dirname $(readlink -f "${0}"))/.init.sh
 ffmpeg \
     -f v4l2 -framerate 29.97 -video_size 720x480 -i "${VIDEO_DEVICE}" \
     -f alsa -i "hw:${ALSA_ID}" \
-    -b:v 8M -y "${OUTFILE}"
+    -b:v 8M ${LENGTH} -y "${OUTFILE}"
+
