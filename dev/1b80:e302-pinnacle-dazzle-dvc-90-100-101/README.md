@@ -21,6 +21,8 @@ sudo rmmod e28xx
 
 And then plug it back in.
 
+Sound is currently not supported. The audio must be adapted into the microphone jack.
+
 ## Links
 - https://www.linuxtv.org/wiki/index.php/Pinnacle
-- https://www.linuxtv.org/wiki/index.php/RoxioEasyVHStoDVD
+- https://www.linuxtv.org/wiki/index.php/RoxioEasyVHStoDVD Not specifically this device.
