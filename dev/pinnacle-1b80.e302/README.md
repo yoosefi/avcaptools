@@ -1,5 +1,7 @@
 # 1b80:e302 Pinnacle Dazzle DVC 90/100/101/
 
+This device is fully functional.
+
 ## Also Known As
 - Afatech
 - Roxio EasyVHStoDVD
