@@ -6,12 +6,13 @@
 - Roxio Easy VHS to DVD
 - Roxio Video Capture USB UB315-E
 
-## Notes
+## Troubleshooting
 This device can be fussy. It sometimes likes to dump out garbage (green, monochrome, scrambled).
+The device might also start responding very slowly.
 
 For color issues, try stopping the tape, rewinding all the way, and playing again.
 
-As a last measure, close everything using it and unplug it. Then:
+Otherwise, unplug it. Then:
 
 ```
 sudo rmmod e28xx_v4l
@@ -21,8 +22,5 @@ sudo rmmod e28xx
 
 And then plug it back in.
 
-Sound is currently not supported. The audio must be adapted into the microphone jack.
-
 ## Links
 - https://www.linuxtv.org/wiki/index.php/Pinnacle
-- https://www.linuxtv.org/wiki/index.php/RoxioEasyVHStoDVD Not specifically this device.

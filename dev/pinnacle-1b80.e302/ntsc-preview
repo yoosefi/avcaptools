@@ -1,6 +1,0 @@
-#!/bin/bash
-set -eu
-
-source $(dirname $(readlink -f "${0}"))/.init.sh
-
-mplayer tv:// -tv "device=${VIDEO_DEVICE}:normid=1" -vf yadif -aspect 4:3 2>/dev/null

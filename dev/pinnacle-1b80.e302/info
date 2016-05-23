@@ -1,5 +1,22 @@
 #!/bin/bash
 # prints info about the device
-source $(dirname $(readlink -f "${0}"))/.init.sh
-echo Device ${VIDEO_DEVICE}
-v4l2-ctl -d ${VIDEO_DEVICE} --all
+set -eu
+source $(dirname $(readlink -f "${0}"))/.rc.sh
+
+echo -e "\x1b[1m===== VIDEO =====\x1b[0m"
+echo "Device: ${VIDEO_DEVICE}"
+echo
+v4l2-ctl -d ${VIDEO_DEVICE} --all || CATCH=0
+echo
+
+echo -e "\x1b[1m===== AUDIO =====\x1b[0m"
+echo "ALSA ID: ${ALSA_ID}"
+cat /proc/asound/card${ALSA_ID}/stream0
+echo
+echo '----- CARD CONTROLS -----'
+amixer -c ${ALSA_ID} contents
+echo
+echo '----- MIXER CONTROLS -----'
+amixer -c ${ALSA_ID} scontents
+echo
+

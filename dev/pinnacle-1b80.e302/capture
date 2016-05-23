@@ -7,10 +7,6 @@ Captures NTSC video to an MPEG-TS file.
 
 ${0} [options] <capture.mpg>
 
-    -a <alsa-id>
-    ALSA hardware ID for the microphone.
-    Default: 0
-
     -t <[[HH:]MM:]SS>
     Duration of time to capture.
     Default: forever
@@ -18,11 +14,8 @@ ${0} [options] <capture.mpg>
 EOF
 exit 1; fi
 
-ALSA_ID="0"
 DURATION=""
 while getopts ":a:t:" opt; do case $opt in
-    a) ALSA_ID="${OPTARG}"
-    ;;
     t) DURATION="-t ${OPTARG}"
     ;;
 esac done
@@ -30,9 +23,9 @@ shift $((OPTIND-1))
 OUTFILE="${1}"
 
 # the video bitrate is brought down to 8M in order to be sensible without losing any detail.
-source $(dirname $(readlink -f "${0}"))/.init.sh
+source $(dirname $(readlink -f "${0}"))/.rc.sh
 ffmpeg \
-    -f v4l2 -framerate 29.97 -video_size 720x480 -i "${VIDEO_DEVICE}" \
-    -f alsa -i hw:${ALSA_ID} \
+    -f v4l2 -i "${VIDEO_DEVICE}" \
+    -f alsa -i hw:${ALSA_ID},0 \
     -f mpegts -aspect 4:3 -b:v 8M ${DURATION} -y "${OUTFILE}"
 
