@@ -1,0 +1,4 @@
+#!/bin/bash
+source $(basedir "${0}")/.rc.sh
+
+ffmpeg -f v4l2 -i /dev/video0 -f alsa -i plughw:1,0 -f mpegts -b:v 8M -b:a 128k -map 0:0 -map 1:0 pipe:1 | ffplay -i pipe:0

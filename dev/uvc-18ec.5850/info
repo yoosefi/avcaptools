@@ -1,0 +1,14 @@
+#!/bin/bash
+set -eu
+source $(dirname "${0}")/.rc.sh
+
+echo -e "\x1b[1mVideo device: ${VIDEO_DEVICE}\x1b[0m"
+echo
+
+v4l2-ctl -d ${VIDEO_DEVICE} --all || CATCH=0
+
+echo
+echo -e "\x1b[1mALSA device: ${ALSA_DEVICE}\x1b[0m"
+cat /proc/asound/card${ALSA_ID}/stream0
+echo
+cat /proc/asound/card${ALSA_ID}/usbmixer
