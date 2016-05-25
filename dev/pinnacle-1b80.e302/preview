@@ -1,5 +1,10 @@
 #!/bin/bash
 set -eu
-source $(dirname $(readlink -f "${0}"))/.rc.sh
+source $(dirname $(readlink -f "${0}"))/.init
 
-mplayer tv:// -tv "device=${VIDEO_DEVICE}:normid=1:alsa:adevice=hw.${ALSA_ID},0:forceaudio:immediatemode=0:audiorate=48000" -vf yadif -aspect 4:3
+VIDEO_OPTS="device=${_VIDEO_DEVICE}:norm=${_VIDEO_NORM}:width=${_VIDEO_WIDTH}:height=${_VIDEO_HEIGHT}"
+ALSA_OPTS="alsa:adevice=hw.${_ALSA_ID},0:forceaudio:immediatemode=0:audiorate=48000"
+mplayer tv:// \
+    -tv "${VIDEO_OPTS}:${ALSA_OPTS}" \
+    ${_PREVIEW_FILTER} \
+    -aspect ${_VIDEO_ASPECT}
