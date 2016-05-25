@@ -8,9 +8,9 @@ cat << EOF
 Video
 Device:     ${_VIDEO_DEVICE}
 Input:      ${_VIDEO_INPUT_ID} ${_VIDEO_INPUT_NAME}
+Signal:     ${_VIDEO_NORM}
 
 Audio
 ALSA ID:    ${_ALSA_ID}
-Signal:     ${_VIDEO_NORM}
 
 EOF
