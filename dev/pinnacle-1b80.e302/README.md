@@ -1,4 +1,4 @@
-# 1b80:e302 Pinnacle Dazzle DVC 90/100/101/
+# 1b80:e302 Pinnacle Dazzle DVC 90/100/101/107
 
 This device is fully functional.
 
