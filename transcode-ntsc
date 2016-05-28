@@ -29,4 +29,6 @@ ffmpeg \
     -c:v libx264 -vf "readvitc,yadif" -b:v 8M -preset medium -tune grain \
     -c:a libfdk_aac \
     -metadata creation_time="$(date --iso-8601=seconds)" -vf scale=720:540 \
+    -movflags faststart \
+    -pix_fmt yuv420p \
     -y "${OUTFILE}"
