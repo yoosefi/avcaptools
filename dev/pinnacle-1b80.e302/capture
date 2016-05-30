@@ -3,7 +3,7 @@ set -eu
 
 if  [ $# -eq 0 ]; then cat << EOF
 
-Captures A/V to an MPEG-TS file.
+Captures A/V to an MPEG.
 
 ${0} [options] <capture.mpg>
 
@@ -14,7 +14,7 @@ ${0} [options] <capture.mpg>
     This duration won't match the duration displayed on your VCR if the tape
     has empty segments. VCRs don't count empty segments as time-played.
 
-    When in doubt add ten minutes or specify the tape's entire length-capacity.
+    When in doubt add a few minutes, or use the tape's entire length-capacity.
 
 EOF
 exit 1; fi
@@ -27,10 +27,19 @@ esac done
 shift $((OPTIND-1))
 OUTFILE="${1}"
 
-# the video bitrate is brought down to 8M in order to be sensible without losing any detail.
 source $(dirname $(readlink -f "${0}"))/.init
+# the video bitrate is brought down from 16MB to 8MB in order to be sensible without losing any detail.
 ffmpeg \
-    -f v4l2 -thread_queue_size 2048 -i "${_VIDEO_DEVICE}" \
-    -f alsa -thread_queue_size 2048 -async 1 -i hw:${_ALSA_ID},0 \
-    -f mpegts -aspect ${_VIDEO_ASPECT} -b:v 8M -pix_fmt yuv420p ${DURATION} -y "${OUTFILE}"
+    -f v4l2 \
+        -thread_queue_size 2048 \
+        -i "${_VIDEO_DEVICE}" \
+    -f alsa \
+        -thread_queue_size 2048 \
+        -i hw:${_ALSA_ID},0 \
+    -f mpeg \
+        -b:v 8M \
+        -pix_fmt yuv420p \
+        -aspect ${_VIDEO_ASPECT} \
+        ${DURATION} \
+        -y "${OUTFILE}"
 
