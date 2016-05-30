@@ -12,7 +12,7 @@ This device is fully functional.
 - `info` prints basic information
 - `select` choose input and signal type. run without arguments for help.
 - `preview` watch what would be captured
-- `capture` record to an MPEG-TS file. run without arguments for help.
+- `capture` record to an MPEG2 file. run without arguments for help.
 - `debug` prints verbose information
 
 ## Troubleshooting
