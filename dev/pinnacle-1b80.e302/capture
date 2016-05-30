@@ -3,7 +3,7 @@ set -eu
 
 if  [ $# -eq 0 ]; then cat << EOF
 
-Captures A/V to an MPEG.
+Captures A/V to an MPEG2 file.
 
 ${0} [options] <capture.mpg>
 
@@ -26,20 +26,19 @@ while getopts ":t:" opt; do case $opt in
 esac done
 shift $((OPTIND-1))
 OUTFILE="${1}"
-
 source $(dirname $(readlink -f "${0}"))/.init
-# the video bitrate is brought down from 16MB to 8MB in order to be sensible without losing any detail.
+
+# the video bitrate is brought down from the device's 16MB to 8MB in order to be sensible without losing any detail.
 ffmpeg \
     -f v4l2 \
         -thread_queue_size 2048 \
-        -i "${_VIDEO_DEVICE}" \
+        -i ${_VIDEO_DEVICE} \
     -f alsa \
         -thread_queue_size 2048 \
         -i hw:${_ALSA_ID},0 \
-    -f mpeg \
+    -c:v mpeg2video -c:a mp2 \
         -b:v 8M \
         -pix_fmt yuv420p \
         -aspect ${_VIDEO_ASPECT} \
         ${DURATION} \
         -y "${OUTFILE}"
-
