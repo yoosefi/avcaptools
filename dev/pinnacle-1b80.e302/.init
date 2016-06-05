@@ -32,7 +32,6 @@ case ${_VIDEO_NORM} in
     ;;
     *)
         echo "Support for ${_VIDEO_NORM} must be added to .init"
-        exit 1
     ;;
 esac
 
