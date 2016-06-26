@@ -6,7 +6,7 @@ usage(){ cat << EOF
 
 Sets various controls on the device and finetunes the device's settings.
 
-${0} selection [selection ...]
+${0} <input> <signal>
 
 Inputs:
     composite
