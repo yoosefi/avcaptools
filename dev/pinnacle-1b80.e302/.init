@@ -19,7 +19,7 @@ _VIDEO_ASPECT="1:1"
 _VIDEO_HEIGHT="100"
 _VIDEO_WIDTH="100"
 
-_VIDEO_NORM=($(v4l2-ctl --get-standard))
+_VIDEO_NORM=($(v4l2-ctl -d ${_VIDEO_DEVICE} --get-standard))
 _VIDEO_NORM=${_VIDEO_NORM[4]}
 
 # override video format vars using the norm as a guide
