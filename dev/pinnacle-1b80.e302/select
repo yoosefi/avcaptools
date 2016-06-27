@@ -33,7 +33,10 @@ ctl(){
 
 V4L2_CTL_ARGS=""
 for opt in $*; do case $opt in
-    composite) ctl -i 0; ;;
+    composite)
+        ctl -i 0;
+        ctl -c sharpness=5
+    ;;
     svideo)
         ctl -i 1
         ctl -c sharpness=0
@@ -41,9 +44,10 @@ for opt in $*; do case $opt in
 
     ntsc)
         ctl -s 1
-        ctl -c sharpness=5
     ;;
-    pal) ctl -s 5; ;;
+    pal)
+        ctl -s 5
+    ;;
 
     # set standard id by default
     *)
