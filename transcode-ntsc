@@ -45,7 +45,7 @@ ffmpeg \
         -vf "yadif" \
         -preset medium -tune grain \
         -pix_fmt yuv420p \
-    -c:a libfdk_aac \
+    -c:a aac \
     -metadata creation_time="$(date --iso-8601=seconds)" \
     -movflags faststart \
     $DURATION \
