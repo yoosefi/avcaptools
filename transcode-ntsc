@@ -24,7 +24,7 @@ DURATION=""
 while getopts ":s:t:" opt; do case $opt in
     s) START="-ss ${OPTARG}"
     ;;
-    t) DURATION="-to ${OPTARG}"
+    t) DURATION="-t ${OPTARG}"
     ;;
 esac done
 shift $((OPTIND-1))
@@ -39,7 +39,7 @@ else
 fi
 
 ffmpeg \
-    $START \
+    $DURATION \
     -i ${INFILE} \
     -c:v libx264 \
         -b:v 8M \
@@ -48,6 +48,6 @@ ffmpeg \
         -pix_fmt yuv420p \
     -c:a aac \
     -metadata creation_time="$(date --iso-8601=seconds)" \
-    -movflags faststart \
-    $DURATION \
+    -movflags +faststart \
+    $START \
     -y "${OUTFILE}"
