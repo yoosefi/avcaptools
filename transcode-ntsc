@@ -31,7 +31,7 @@ shift $((OPTIND-1))
 INFILE="${1}"
 if [ $# -eq 1 ]; then
     DIRNAME=$(dirname "${INFILE}")
-    BASENAME=$(basename ${INFILE})
+    BASENAME=$(basename "${INFILE}")
     OUTFILE="${DIRNAME}/${BASENAME%.*}.mp4"
 else
     OUTFILE="${2}"
