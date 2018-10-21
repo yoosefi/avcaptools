@@ -3,7 +3,8 @@ set -eu
 
 if [ $# -eq 0 ]; then cat << EOF
 
-Transcodes a previously captured NTSC video from MPEG2 to AAC/H.264
+Transcodes a previously captured NTSC video from MPEG2 to AAC/H.264,
+with presets to deinterlace and preserve grain.
 
 ${0} [-s nn:nn] [-t nn:nn] <capture.mpg> [<output.mp4>]
 
