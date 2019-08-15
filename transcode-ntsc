@@ -3,29 +3,55 @@ set -eu
 
 if [ $# -eq 0 ]; then cat << EOF
 
-Transcodes an interlaced NTSC video to AAC/x264.
+Transcodes an interlaced NTSC video to AAC/H.264.
 
 ${0} [options] input.mpg [output.mkv]
 
     Options:
-    -s [nn:[nn:]]nn     Start transcoding from this timecode
-    -t [nn:[nn:]]nn     End transcoding at this timecode
+
+    -s [HH:[MM:]]SS     Starts transcoding from this timecode.
+
+    -t [HH:[MM:]]SS     Ends transcoding at this timecode.
+
+    -x CODEC            Uses a hardware-accelerated video codec.
+                        Hardware encoding trades space for extreme speed.
+                        Set "ffmpeg=/path/to/ffmpeg" to use a custom build.
+
+                        Known hardware codecs:
+                            h264_nvenc
 
 If no output file name is given, it defaults to a similarly named
 MKV in the working directory.
 
-Roughly 1GB is produced for each hour of transcoded video.
+Output file size per hour of transcoded video:
+
+    x264 (default)  ~1GB/hr
+    h264_nvenc      ~1.5GB/hr
 
 EOF
     exit 1
 fi
 
+ffmpeg=${ffmpeg:-ffmpeg}
+
 StartTime=""
 EndTime=""
-while getopts ":s:t:" opt; do case $opt in
+VideoCodec="libx264"
+VideoOpts="-crf 23 -preset veryslow"
+while getopts ":s:t:x:" opt; do case $opt in
     s) StartTime="-ss ${OPTARG}"
     ;;
     t) EndTime="-t ${OPTARG}"
+    ;;
+    x) VideoCodec="${OPTARG}"
+        case $VideoCodec in
+            h264_nvenc)
+                # x264 has better bang per bit. try to match x264 crf 23.
+                # this is ~1.5GB/hr (but it's so fast uwu)
+                #          avg        avgq   vbr        same as x264     slowest
+                VideoOpts="-b:v 3000k -cq 19 -rc vbr_hq -rc-lookahead 60 -preset slow -profile:v high -level:v 4"
+            ;;
+        esac
     ;;
 esac done
 shift $((OPTIND-1))
@@ -38,14 +64,13 @@ else
     Output="${2}"
 fi
 
-ffmpeg \
+$ffmpeg \
     $EndTime \
     -i "${Input}" \
     -c:a aac \
-    -c:v libx264 \
-        -vf "yadif" \
-        -crf 23 \
-        -preset veryslow \
+    -vf "yadif" \
+    -c:v ${VideoCodec} \
+    ${VideoOpts} \
     -metadata creation_time="$(date --iso-8601=seconds)" \
     -movflags +faststart \
     $StartTime \
