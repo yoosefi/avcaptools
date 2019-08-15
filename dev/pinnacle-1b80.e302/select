@@ -9,7 +9,7 @@ Sets various controls on the device and finetunes the device's settings.
 ${0} <input> <signal>
 
 Inputs:
-    composite
+    composite   Sharpness is slightly increased.
     svideo
 
 Signals:
@@ -17,8 +17,8 @@ Signals:
     pal         Europe (most)
     secam       France
 
-Specifying a number as the selection will set the signal by ID.
-Supported signal IDs can seen via:
+The signal type can also be set by ID.
+Supported signals can seen via:
 
 $ v4l2-ctl -d ${_VIDEO_DEVICE} --list-standards -k
 
@@ -34,7 +34,7 @@ ctl(){
 V4L2_CTL_ARGS=""
 for opt in $*; do case $opt in
     composite)
-        ctl -i 0;
+        ctl -i 0
         ctl -c sharpness=5
     ;;
     svideo)

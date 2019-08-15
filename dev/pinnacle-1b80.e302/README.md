@@ -9,11 +9,11 @@ This device is fully functional.
 - Roxio Video Capture USB UB315-E
 
 ## Scripts
-- `info` prints basic information
-- `select` choose input and signal type. run without arguments for help.
-- `preview` watch what would be captured
-- `capture` record to an MPEG2 file. run without arguments for help.
-- `debug` prints verbose information
+- `info` prints basic information.
+- `select` chooses input and signal type. Run without arguments for help.
+- `preview` shows what would be captured.
+- `capture` records to an MPG file. Run without arguments for help.
+- `debug` print verbose information.
 
 ## Troubleshooting
 This device can be fussy. It sometimes likes to dump out garbage (green, monochrome, scrambled).

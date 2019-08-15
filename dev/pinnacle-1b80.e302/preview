@@ -4,7 +4,7 @@ source $(dirname $(readlink -f "${0}"))/.init
 
 VIDEO_OPTS="input=${_VIDEO_INPUT_ID}:device=${_VIDEO_DEVICE}:norm=${_VIDEO_NORM}:width=${_VIDEO_WIDTH}:height=${_VIDEO_HEIGHT}"
 ALSA_OPTS="alsa:adevice=hw.${_ALSA_ID},0:forceaudio:immediatemode=0:audiorate=48000"
-mplayer tv:// \
+
+mpv tv:// \
     -tv "${VIDEO_OPTS}:${ALSA_OPTS}" \
-    ${_PREVIEW_FILTER} \
     -aspect ${_VIDEO_ASPECT}

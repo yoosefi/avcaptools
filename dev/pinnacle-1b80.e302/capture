@@ -3,18 +3,18 @@ set -eu
 
 if  [ $# -eq 0 ]; then cat << EOF
 
-Captures A/V to an MPEG2 file.
+Captures A/V to an MPG (MP2/MPEG2)
 
-${0} [options] <capture.mpg>
+${0} [options] output.mpg
 
-    -t <[[HH:]MM:]SS>
+    -t [[HH:]MM:]SS
     Duration of the captured video file.
     Default: forever (until canceled)
 
     This duration won't match the duration displayed on your VCR if the tape
-    has empty segments. VCRs don't count empty segments as time-played.
+    has empty segments; VCRs don't count empty segments as time-played.
 
-    When in doubt add a few minutes, or use the tape's entire length-capacity.
+    When in doubt round up a couple minutes, or use the tape's entire length-capacity.
 
 EOF
 exit 1; fi
@@ -28,7 +28,7 @@ shift $((OPTIND-1))
 OUTFILE="${1}"
 source $(dirname $(readlink -f "${0}"))/.init
 
-# the video bitrate is brought down from the device's 16MB to 8MB in order to be sensible without losing any detail.
+# the video bitrate is brought down from the device's 16Mbps to 8Mbps in order to be sensible without losing any detail.
 ffmpeg \
     -f v4l2 \
         -thread_queue_size 2048 \
@@ -36,9 +36,10 @@ ffmpeg \
     -f alsa \
         -thread_queue_size 2048 \
         -i hw:${_ALSA_ID},0 \
-    -c:v mpeg2video -c:a mp2 \
+    -c:a mp2 \
+    -c:v mpeg2video \
         -b:v 8M \
         -pix_fmt yuv420p \
         -aspect ${_VIDEO_ASPECT} \
-        ${DURATION} \
-        -y "${OUTFILE}"
+    ${DURATION} \
+    -y "${OUTFILE}"

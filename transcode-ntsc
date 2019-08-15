@@ -3,51 +3,50 @@ set -eu
 
 if [ $# -eq 0 ]; then cat << EOF
 
-Transcodes a previously captured NTSC video from MPEG2 to AAC/H.264,
-with presets to deinterlace and preserve grain.
+Transcodes an interlaced NTSC video to AAC/x264.
 
-${0} [-s nn:nn] [-t nn:nn] <capture.mpg> [<output.mp4>]
+${0} [options] input.mpg [output.mkv]
 
-Unless the second argument is given to specify the output file name,
-the transcoded video is put in the same directory as the captured video,
-and uses the same name with the extension changed to mp4.
+    Options:
+    -s [nn:[nn:]]nn     Start transcoding from this timecode
+    -t [nn:[nn:]]nn     End transcoding at this timecode
 
--s  Start timecode
--t  End timecode
+If no output file name is given, it defaults to a similarly named
+MKV in the working directory.
+
+Roughly 1GB is produced for each hour of transcoded video.
 
 EOF
     exit 1
 fi
 
-START=""
-DURATION=""
+StartTime=""
+EndTime=""
 while getopts ":s:t:" opt; do case $opt in
-    s) START="-ss ${OPTARG}"
+    s) StartTime="-ss ${OPTARG}"
     ;;
-    t) DURATION="-t ${OPTARG}"
+    t) EndTime="-t ${OPTARG}"
     ;;
 esac done
 shift $((OPTIND-1))
 
-INFILE="${1}"
+Input="${1}"
 if [ $# -eq 1 ]; then
-    DIRNAME=$(dirname "${INFILE}")
-    BASENAME=$(basename "${INFILE}")
-    OUTFILE="${DIRNAME}/${BASENAME%.*}.mp4"
+    Basename=$(basename "${Input}")
+    Output="${Basename%.*}.mkv"
 else
-    OUTFILE="${2}"
+    Output="${2}"
 fi
 
 ffmpeg \
-    $DURATION \
-    -i ${INFILE} \
-    -c:v libx264 \
-        -b:v 8M \
-        -vf "yadif" \
-        -preset medium -tune grain \
-        -pix_fmt yuv420p \
+    $EndTime \
+    -i "${Input}" \
     -c:a aac \
+    -c:v libx264 \
+        -vf "yadif" \
+        -crf 23 \
+        -preset veryslow \
     -metadata creation_time="$(date --iso-8601=seconds)" \
     -movflags +faststart \
-    $START \
-    -y "${OUTFILE}"
+    $StartTime \
+    "${Output}"

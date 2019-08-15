@@ -5,23 +5,30 @@ If you have scripts you'd like to add for specific hardware, please send a pull 
 
 Requirements:
 - `bash` for scripts.
-- `mplayer` for previewing output.
+- `mpv` for previewing output.
 - `ffmpeg` for encoding.
 
 ## Capturing and Transcoding
-The capture scripts here encode to MPEG2 files with an average bitrate of 8MB. In order to fit a two-hour capture on a DVD, the average bitrate must be reduced to 4.5MB-5MB. Most DVD authoring software will do this for you.
+The device scripts here capture MP2/MPEG2 at an average bitrate of 8Mb/s, producing an MPG of ~4GB/hr (huge and raw).
 
-There are also transcoding scripts in the root directory for the various formats to create H.264 MP4 files.
+The `transcode-ntsc` script deinterlaces and compresses to AAC/x264, producing a visually identical video of ~1GB/hr (nice).
 
 ## Project Structure
 The `dev` directory houses subdirectories for each device.
-The subdirectory names begin with the device's vendor, followed by the `lsusb` id (with the colon replaced by a period).
+The subdirectory names begin with the device's vendor, followed by the `lsusb` ID (with the colon replaced by a period).
 
 In each device directory are scripts and a README.
 The README includes general notes, as well as other names the device might be known under.
 
-## Links
+## Device Health
+Name|Status|Notes
+-|-|-
+pinnacle-1b80.e302|Great|Works out of the box. 
+somagic-1c88.0007|OK|Has a support project. Requires Windows XP driver.
+uvc-18ec.5850|Broken|Audio and video issues.
+
+## Reference Links
 - https://ffmpeg.org/ffmpeg-filters.html
 - https://ffmpeg.org/ffmpeg-formats.html
 - https://linuxtv.org/wiki/index.php/Main_Page
-- http://avaa.bavc.org/artifactatlas/index.php/Image_Gallery
+- https://bavc.github.io/avaa/gallery.html
