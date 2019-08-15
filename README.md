@@ -23,7 +23,7 @@ In each device directory are scripts and a README.
 The README includes general notes, as well as other names the device might be known under.
 
 ## Device Health
-Name|Status|Notes
+Device|Status|Notes
 -|-|-
 pinnacle-1b80.e302|Great|Works out of the box. 
 somagic-1c88.0007|OK|Has a support project. Requires Windows XP driver.
