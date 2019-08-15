@@ -3,6 +3,8 @@ A collection of scripts to aid A/V capturing on Linux.
 
 If you have scripts you'd like to add for specific hardware, please send a pull request.
 
+**HARDWARE DONATIONS ARE WELCOME**
+
 Requirements:
 - `bash` for scripts.
 - `mpv` for previewing output.
