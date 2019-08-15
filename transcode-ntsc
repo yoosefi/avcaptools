@@ -48,7 +48,7 @@ while getopts ":s:t:x:" opt; do case $opt in
             h264_nvenc)
                 # x264 has better bang per bit. try to match x264 crf 23.
                 # this is ~1.5GB/hr (but it's so fast uwu)
-                #          avg        avgq   vbr        same as x264     slowest
+                #          avg        avgq   vbr        same as x264     slowest(implied 2pass+cabac)
                 VideoOpts="-b:v 3000k -cq 19 -rc vbr_hq -rc-lookahead 60 -preset slow -profile:v high -level:v 4"
             ;;
         esac
