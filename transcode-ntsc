@@ -3,7 +3,7 @@ set -eu
 
 if [ $# -eq 0 ]; then cat << EOF
 
-Transcodes an interlaced NTSC video to AAC/H.264.
+Transcodes an interlaced NTSC video to MKV (x264)
 
 ${0} [options] input.mpg [output.mkv]
 
@@ -67,7 +67,7 @@ fi
 $ffmpeg \
     $EndTime \
     -i "${Input}" \
-    -c:a aac \
+    -c:a copy \
     -vf "yadif" \
     -c:v ${VideoCodec} \
     ${VideoOpts} \

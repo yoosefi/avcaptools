@@ -3,18 +3,18 @@ set -eu
 
 if  [ $# -eq 0 ]; then cat << EOF
 
-Captures A/V to an MPG (MP2/MPEG2)
+Captures A/V to MP4 (8Mbps MPEG2 / 128kbps AAC)
 
-${0} [options] output.mpg
+${0} [options] output.mp4
 
     -t [[HH:]MM:]SS
-    Duration of the captured video file.
-    Default: forever (until canceled)
+    Duration of the capture.
+    Default: forever (CTRL+C to stop)
 
     This duration won't match the duration displayed on your VCR if the tape
     has empty segments; VCRs don't count empty segments as time-played.
 
-    When in doubt round up a couple minutes, or use the tape's entire length-capacity.
+    When in doubt, round up a couple minutes.
 
 EOF
 exit 1; fi
@@ -36,10 +36,11 @@ ffmpeg \
     -f alsa \
         -thread_queue_size 2048 \
         -i hw:${_ALSA_ID},0 \
-    -c:a mp2 \
+    -c:a aac \
     -c:v mpeg2video \
         -b:v 8M \
         -pix_fmt yuv420p \
         -aspect ${_VIDEO_ASPECT} \
     ${DURATION} \
     -y "${OUTFILE}"
+

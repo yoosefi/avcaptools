@@ -6,14 +6,15 @@ If you have scripts you'd like to add for specific hardware, please send a pull 
 **HARDWARE DONATIONS ARE WELCOME**
 
 Requirements:
-- `bash` for scripts.
-- `mpv` for previewing output.
-- `ffmpeg` for encoding.
+- `bash`
+- `ffmpeg`
+- `mpv`
+- `v4l-utils`
 
 ## Capturing and Transcoding
-The device scripts here capture MP2/MPEG2 at an average bitrate of 8Mb/s, producing an MPG of ~4GB/hr (huge and raw).
+The device scripts here capture from A/V input devices to MP4 (8Mbps MPEG2 / 128kbps AAC), using ~4GB of disk space per hour of content.
 
-The `transcode-ntsc` script deinterlaces and compresses to AAC/x264, producing a visually identical video of ~1GB/hr (nice).
+The `transcode-ntsc` script deinterlaces and compresses captured files to a virtually identical MKV (x264), using ~1GB of disk space per hour of content.
 
 ## Project Structure
 The `dev` directory houses subdirectories for each device.
@@ -26,8 +27,8 @@ The README includes general notes, as well as other names the device might be kn
 Device|Status|Notes
 -|-|-
 pinnacle-1b80.e302|Great|Works out of the box. 
-somagic-1c88.0007|OK|Has a support project. Requires Windows XP driver.
-uvc-18ec.5850|Broken|Audio and video issues.
+somagic-1c88.0007|OK|Has a support project. Requires Windows XP driver. **UNMAINTAINED**
+uvc-18ec.5850|Broken|Audio and video issues. **UNMAINTAINED**
 
 ## Reference Links
 - https://ffmpeg.org/ffmpeg-filters.html

@@ -1,13 +1,13 @@
 #!/bin/bash
 # sourced by the other scripts.
 # this sets some vars to use in order to avoid mplayer and ffmpeg assuming things,
-# or worse, mplayer changing device settings based on those assumptions.
+# or worse, mpv changing device settings based on those assumptions.
 
 _warn(){ (>&2 echo "$@"); }
 _error(){ _warn "$@"; exit 1; }
 
 # check for required programs
-for each in awk ffmpeg mplayer v4l2-ctl; do
+for each in awk ffmpeg mpv v4l2-ctl; do
     if [ -z "$(which $each)" ]; then
         _error "Missing: ${each}"
     fi
@@ -28,8 +28,8 @@ _VIDEO_INPUT_NAME="${_VIDEO_INPUT[@]:4}"
 
 # video format vars. defaults to NTSC-M. overridden below.
 _VIDEO_ASPECT="4:3"
-_VIDEO_HEIGHT="480"
 _VIDEO_WIDTH="720"
+_VIDEO_HEIGHT="480"
 
 _VIDEO_NORM=($(v4l2-ctl -d ${_VIDEO_DEVICE} --get-standard))
 _VIDEO_NORM=${_VIDEO_NORM[4]}
