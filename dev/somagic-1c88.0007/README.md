@@ -1,5 +1,7 @@
 # 1c88:0007 Somagic, Inc.
 
+# UNMAINTAINED
+
 ## Also Known As
 - SIIG USB 2.0 Video Capture Device JU-AV0012-S1
 
