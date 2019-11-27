@@ -66,6 +66,7 @@ fi
 
 $ffmpeg \
     $EndTime \
+    -hwaccel auto \
     -i "${Input}" \
     -c:a copy \
     -vf "yadif" \
