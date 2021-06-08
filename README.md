@@ -1,3 +1,9 @@
+# ABANDONED
+
+Use OBS for Linux, it's mature now, and can do nvenc.
+
+I'll keep these hacks up for posterity.
+
 # AVCapTools
 A collection of scripts to aid A/V capturing on Linux.
 
